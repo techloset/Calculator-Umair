@@ -11,12 +11,16 @@ import Entypo from 'react-native-vector-icons/Entypo';
 const Home = () => {
     const [light, setLight] = useState(false)
     const [result, setResult] = useState('')
+    const [answer, setAnswer] = useState('')
     const changeMode = () => {
         setLight(!light)
     }
+    let expressionsCalculated = 0;
     const calculate = (text) => {
         if (text === 'AC') {
             setResult('');
+            setAnswer('')
+            expressionsCalculated = 0;
         } else if (text === 'refresh') {
             setResult(result.substring(0, result.length - 1));
         } else if (text === '.' && result.includes('.')) {
@@ -29,12 +33,24 @@ const Home = () => {
         } else if (text === '=' && !result) {
             setResult('')
         } else if (text === '=') {
-            const ans = Number(eval(result).toFixed(3));
-            setResult(ans.toString());
+            try {
+                const ans = Number(eval(result).toFixed(3));
+                setAnswer('=' + ans.toString());
+                setResult('')
+                expressionsCalculated++;
+            } catch (error) {
+                setAnswer('Error');
+                setResult('')
+            }
         } else if (text === '+/-') {
-        } else {
+        } else if (text === '=') {
+            setAnswer('=', answer + text)
+        }
+
+        else {
             setResult(result + text);
         }
+
     };
     return (
         <View style={[{ flex: 1, }, { backgroundColor: light ? 'black' : 'white' }]} >
@@ -51,12 +67,23 @@ const Home = () => {
                         <Ionicons name='md-moon-outline' size={25} color={!light ? 'white' : 'white'} />
                     </TouchableOpacity>
                 </View>
+                <View>
 
-                <View style={{ display: 'flex', flexDirection: 'row-reverse', marginBottom: 20 }} >
-                    <Text style={{ color: light ? '#FFFFFF' : '#000000', fontSize: 40, fontWeight: '600', marginRight: 20 }} >
+                    <View style={{ display: 'flex', flexDirection: 'row-reverse' }}>
+                        <Text style={{ color: light ? '#FFFFFF' : '#000000', fontSize: 40, fontWeight: '600', marginRight: 20, }}  >
+                            {answer}
+                        </Text>
+                    </View>
+                    <View style={{ display: 'flex', flexDirection: 'row-reverse', marginBottom: 20 }} >
 
-                        {result}
-                    </Text>
+
+
+                        <Text style={{ color: light ? '#FFFFFF' : '#000000', fontSize: 40, fontWeight: '600', marginRight: 20, }}  >
+                            {result}
+
+                        </Text>
+
+                    </View>
                 </View>
             </View>
 
