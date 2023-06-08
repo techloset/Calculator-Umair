@@ -23,8 +23,6 @@ const Home = () => {
 
         } else if (text === 'refresh') {
             setResult(result.substring(0, result.length - 1));
-        } else if (text === '.' && result.includes('.')) {
-
         } else if (text === '%' && result.includes('%')) {
 
         }
@@ -109,8 +107,8 @@ const Home = () => {
                         <OperatorKeys text='*' operate={calculate} Icon={<Entypo name="cross" size={33} color="#EB6363" />} backgroundColor={light ? 'black' : '#FFFFFF'} />
                     </View>
                     <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 20, marginVertical: 0 }}>
-                        <NumericKeys numerics={calculate} text='5' color={light ? '#FFFFFF' : '#000000'} backgroundColor={light ? 'black' : '#FFFFFF'} />
                         <NumericKeys numerics={calculate} text='4' color={light ? '#FFFFFF' : '#000000'} backgroundColor={light ? 'black' : '#FFFFFF'} />
+                        <NumericKeys numerics={calculate} text='5' color={light ? '#FFFFFF' : '#000000'} backgroundColor={light ? 'black' : '#FFFFFF'} />
                         <NumericKeys numerics={calculate} text='6' color={light ? '#FFFFFF' : '#000000'} backgroundColor={light ? 'black' : '#FFFFFF'} />
                         <OperatorKeys text='-' operate={calculate} Icon={<Icon name="minus" size={23} color="#EB6363" />} backgroundColor={light ? 'black' : '#FFFFFF'} />
                     </View>
