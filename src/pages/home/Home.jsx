@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View, StatusBar, TouchableOpacity, Input, TextInput, KeyboardAvoidingView } from 'react-native';
-import React, { useState } from 'react';
+import { StyleSheet, Text, View, StatusBar, TouchableOpacity, Input, TextInput, KeyboardAvoidingView, hideKeyboard, Keyboard } from 'react-native';
+import React, { useState, } from 'react';
 import NumericKeys from '../../components/numericKeys/NumericKeys';
 import OperatorKeys from '../../components/operatorKeys/OperatorKeys';
 import FunctionalKeys from '../../components/functionalKeys/FuntionalKeys';
@@ -11,6 +11,7 @@ import Entypo from 'react-native-vector-icons/Entypo';
 const Home = () => {
     const [light, setLight] = useState(false)
     const [result, setResult] = useState('')
+    // const inputRef = useRef(null);
     const [answer, setAnswer] = useState('')
     const changeMode = () => {
         setLight(!light)
@@ -32,7 +33,7 @@ const Home = () => {
             setResult('')
         } else if (text === '=') {
             try {
-                const ans = Number(eval(result).toFixed(3));
+                const ans = Number(eval(result).toFixed(10));
                 setAnswer('=' + ans.toString());
                 setResult('')
                 // expressionsCalculated++;
@@ -73,14 +74,17 @@ const Home = () => {
                         {answer}
                     </Text>
                 </View>
-                <View style={{ display: 'flex', flexDirection: 'row-reverse', marginBottom: 20 }} >
+                <View style={{ display: 'flex', flexDirection: 'row-reverse', marginBottom: 20 }}>
+                    <TextInput
+                        value={result}
+                        style={{ color: light ? '#FFFFFF' : '#000000', fontSize: 40, fontWeight: '600', marginRight: 20 }}
+
+                        // onFocus={() => Keyboard.dismiss()}
+                        showSoftInputOnFocus={false}
 
 
+                    />
 
-                    <Text style={{ color: light ? '#FFFFFF' : '#000000', fontSize: 40, fontWeight: '600', marginRight: 20, }}  >
-                        {result}
-
-                    </Text>
 
                 </View>
             </View>
@@ -136,8 +140,3 @@ export default Home
 const styles = StyleSheet.create({
 
 })
-
-
-
-
-
